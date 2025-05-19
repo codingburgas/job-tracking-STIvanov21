@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Contracts\Base\" />
     <Folder Include="Persistance\" />
   </ItemGroup>
 
