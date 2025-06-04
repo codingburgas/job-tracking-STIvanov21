@@ -1,4 +1,6 @@
 
+using Microsoft.EntityFrameworkCore;
+
 namespace JobTracking.API
 {
     public class Program
@@ -8,10 +10,13 @@ namespace JobTracking.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.AddContext();
+            /*builder.AddContext();
             builder.AddIdentity();
             builder.AddCors();
-            builder.AddServices();
+            builder.AddServices();*/
+            
+            builder.Services.AddDbContext<DataAccess.AppDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
