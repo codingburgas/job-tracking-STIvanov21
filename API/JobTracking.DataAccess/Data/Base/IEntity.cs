@@ -1,5 +1,10 @@
 ﻿namespace JobTracking.DataAccess.Data.Base
 {
+    public enum UserRole
+    {
+        User,
+        Admin
+    }
     public interface IEntity
     {
         public int Id { get; set; }
