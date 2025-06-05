@@ -1,4 +1,5 @@
 
+using JobTracking.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobTracking.API
@@ -17,6 +18,7 @@ namespace JobTracking.API
             
             builder.Services.AddDbContext<DataAccess.AppDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
