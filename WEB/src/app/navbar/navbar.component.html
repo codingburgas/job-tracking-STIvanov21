@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" routerLink="/" style="cursor: pointer;">
+      JobManager
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="cursor: pointer;">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item me-2">
+          <a class="nav-link px-3 py-1 fw-semibold rounded-pill text-white bg-primary"
+             routerLink="/" style="cursor: pointer;">
+            Home
+          </a>
+        </li>
+
+        <li class="nav-item me-2">
+          <a class="nav-link px-3 py-1 fw-semibold rounded-pill text-white bg-success"
+             routerLink="/jobs" style="cursor: pointer;">
+            Jobs
+          </a>
+        </li>
+
+        <li class="nav-item me-2">
+          <a class="nav-link px-3 py-1 fw-semibold rounded-pill text-dark bg-warning"
+             routerLink="/applications" style="cursor: pointer;">
+            Applications
+          </a>
+        </li>
+
+        <li class="nav-item me-2">
+          <a class="nav-link px-3 py-1 fw-semibold rounded-pill text-white bg-danger"
+             routerLink="/admin" style="cursor: pointer;">
+            Admin
+          </a>
+        </li>
+      </ul>
+
+      <!-- Redesigned welcome text -->
+      <div class="d-flex align-items-center">
+        <div class="bg-info text-dark px-3 py-1 rounded-pill fw-semibold shadow-sm">
+          Welcome, User
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
