@@ -43,7 +43,7 @@ export class AuthService {
     return this.http.post<User>(`${this.apiUrl}/login`, { username, password }).pipe(
       tap(user => {
         this.userSubject.next(user);
-        localStorage.setItem('currentUser', JSON.stringify(user));  // <-- add this
+        localStorage.setItem('currentUser', JSON.stringify(user));
       })
     );
   }

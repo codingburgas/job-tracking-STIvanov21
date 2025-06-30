@@ -16,7 +16,7 @@ export class JobCreateComponent {
     title: '',
     description: '',
     location: '',
-    createdBy: 'admin' // TODO: replace with logged-in user later
+    createdBy: 'admin'
   };
 
   constructor(private jobService: JobService) {}

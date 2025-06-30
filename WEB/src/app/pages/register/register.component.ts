@@ -18,7 +18,6 @@ export class RegisterComponent implements OnInit {
     email:      '',
     password:   '',
     age:        0
-    // optional: middleName and role omitted for default handling
   };
 
   error: string = '';

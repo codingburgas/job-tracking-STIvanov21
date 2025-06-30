@@ -24,7 +24,7 @@ export class LoginComponent {
     this.auth.login(this.username, this.password).subscribe({
       next: (user: User) => {
         this.error = '';
-        localStorage.setItem('currentUser', JSON.stringify(user)); // ✅ Save logged-in user properly
+        localStorage.setItem('currentUser', JSON.stringify(user));
         this.router.navigate(['/main-menu']);
       },
       error: err => {

@@ -14,11 +14,8 @@ export class SettingsComponent implements OnInit {
   emailNotifications: boolean = true;
 
   ngOnInit() {
-    // Read saved value but do NOT apply class immediately
     const saved = localStorage.getItem('darkMode');
     this.darkMode = saved === 'true';
-
-    // Don't call applyDarkMode() here — let user toggle first
   }
 
   toggleDarkMode() {

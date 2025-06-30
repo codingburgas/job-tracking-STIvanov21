@@ -1,4 +1,3 @@
-// src/app/pages/main-menu/main-menu.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';

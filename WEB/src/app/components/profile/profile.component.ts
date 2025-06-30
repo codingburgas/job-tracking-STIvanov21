@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // ✅ import this for ngIf, ngFor, etc.
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
-  standalone: true, // ✅ if you're using standalone components
-  imports: [CommonModule], // ✅ fix goes here
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './profile.component.html',
 })
 export class ProfileComponent implements OnInit {
