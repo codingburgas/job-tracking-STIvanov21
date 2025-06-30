@@ -1,0 +1,19 @@
+<div class="container mt-5" style="max-width: 400px;">
+  <h2>Main Menu</h2>
+  <p *ngIf="currentUser">Welcome, {{ currentUser.username }}!</p>
+
+  <div class="d-grid gap-2">
+    <button class="btn btn-primary" (click)="goTo('/dashboard')">
+      Dashboard
+    </button>
+    <button class="btn btn-secondary" (click)="goTo('/profile')">
+      Profile
+    </button>
+    <button class="btn btn-info" (click)="goTo('/settings')">
+      Settings
+    </button>
+    <button class="btn btn-danger" (click)="logout()">
+      Logout
+    </button>
+  </div>
+</div>
