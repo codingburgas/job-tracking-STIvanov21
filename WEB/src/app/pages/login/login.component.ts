@@ -23,8 +23,8 @@ export class LoginComponent {
   login(): void {
     this.auth.login(this.username, this.password).subscribe({
       next: (user: User) => {
-        // On successful login, navigate to the main menu
         this.error = '';
+        localStorage.setItem('currentUser', JSON.stringify(user)); // ✅ Save logged-in user properly
         this.router.navigate(['/main-menu']);
       },
       error: err => {
@@ -33,4 +33,5 @@ export class LoginComponent {
       }
     });
   }
+
 }

@@ -1,0 +1,22 @@
+<div class="container mt-5" style="max-width: 500px;">
+  <h2>User Profile</h2>
+
+  <div *ngIf="user; else noUser" class="card mt-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ user.firstName }} {{ user.lastName }}</h5>
+      <p class="card-text">
+        <strong>Username:</strong> {{ user.username }}<br />
+        <strong>Email:</strong> {{ user.email }}<br />
+        <strong>Role:</strong> {{ user.role }}<br />
+        <strong>Age:</strong> {{ user.age }}<br />
+        <strong>Joined:</strong> {{ user.createdOn | date:'mediumDate' }}
+      </p>
+    </div>
+  </div>
+
+  <ng-template #noUser>
+    <div class="alert alert-warning mt-3">
+      No user is currently logged in.
+    </div>
+  </ng-template>
+</div>

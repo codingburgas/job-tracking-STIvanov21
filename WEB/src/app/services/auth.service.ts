@@ -3,9 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 export interface User {
-  userId: number;
-  username: string;
-  role: string;
+  firstName:  string;
+  middleName?: string;
+  lastName:   string;
+  username:   string;
+  email:      string;
+  password:   string;
+  age:        number;
+  role:      string;
 }
 
 export interface RegisterForm {
@@ -27,11 +32,19 @@ export class AuthService {
   private userSubject = new BehaviorSubject<User | null>(null);
   user$ = this.userSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const userJson = localStorage.getItem('currentUser');
+    if (userJson) {
+      this.userSubject.next(JSON.parse(userJson));
+    }
+  }
 
   login(username: string, password: string): Observable<User> {
     return this.http.post<User>(`${this.apiUrl}/login`, { username, password }).pipe(
-      tap(user => this.userSubject.next(user))
+      tap(user => {
+        this.userSubject.next(user);
+        localStorage.setItem('currentUser', JSON.stringify(user));  // <-- add this
+      })
     );
   }
 
@@ -40,6 +53,7 @@ export class AuthService {
   }
 
   logout(): void {
+    localStorage.removeItem('currentUser');
     this.userSubject.next(null);
   }
 
@@ -49,5 +63,9 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return this.currentUser !== null;
+  }
+
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem('currentUser') || 'null');
   }
 }

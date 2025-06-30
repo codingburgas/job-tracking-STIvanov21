@@ -1,20 +1,13 @@
-using System.ComponentModel.DataAnnotations;
-using JobTracking.DataAccess.Data.Base;
+using JobTracking.DataAccess.Data.Models;
 
-namespace JobTracking.DataAccess.Data.Models;
-
-public class JobOffer : IEntity
+public class JobOffer
 {
-    [Required] public int Id { get; set; }
-    [Required] public bool IsActive { get; set; }
-    [Required] public DateTime CreatedOn { get; set; }
-    [Required] public string CreatedBy { get; set; }
-    public DateTime? UpdatedOn { get; set; }
-    public string? UpdatedBy { get; set; }
+    public int Id { get; set; }
+    public string Title { get; set; } = null!;
+    public string Description { get; set; } = null!;
+    public string Location { get; set; } = null!;
+    public string CreatedBy { get; set; } = null!;
+    public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
     
-    [Required, MaxLength(50)] public string ApplicantFullName { get; set; }
-    [Required, MaxLength(50)] public string ApplicantEmail { get; set; }
-    [Required, MaxLength(50)] public string CompanyName { get; set; }
-    [Required, MaxLength(50)] public string JobTitle { get; set; }
-    public int? JobSalary { get; set; }
+    public ICollection<Application> JobApplications { get; set; } = new List<Application>();
 }

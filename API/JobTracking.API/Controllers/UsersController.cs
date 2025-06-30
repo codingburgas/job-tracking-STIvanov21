@@ -102,7 +102,14 @@ public class UsersController : ControllerBase
 
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
-        return Ok();
+        return Ok(new {
+            user.Id,
+            user.Username,
+            user.Email,
+            user.Age,
+            user.Role
+        });
+
     }
 
 
@@ -117,7 +124,19 @@ public class UsersController : ControllerBase
             return Unauthorized("Invalid username or password");
         }
 
-        return Ok(new { user.Id, user.Username, user.Role });
+        return Ok(new
+        {
+            user.Id,
+            user.Username,
+            user.Email,
+            user.FirstName,
+            user.LastName,
+            user.Role,
+            user.Age,
+            user.CreatedOn // ✅ include this
+        });
+
+
     }
 
     // 🔐 Helper for hashing passwords

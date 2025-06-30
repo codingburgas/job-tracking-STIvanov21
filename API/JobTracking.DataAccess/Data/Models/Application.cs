@@ -3,17 +3,28 @@ using JobTracking.DataAccess.Data.Base;
 
 namespace JobTracking.DataAccess.Data.Models;
 
-public class Application : IEntity
+public class Application
 {
-    [Required] public int Id { get; set; }
-    [Required] public bool IsActive { get; set; }
-    [Required] public DateTime CreatedOn { get; set; }
-    [Required] public string CreatedBy { get; set; }
-    public DateTime? UpdatedOn { get; set; }
-    public string? UpdatedBy { get; set; }
+    [Key]
+    public int Id { get; set; }
 
-    [Required, MaxLength(50)] public string ApplicantFullName { get; set; }
-    [Required, MaxLength(50)] public string ApplicantEmail { get; set; }
-    [Required, MaxLength(50)] public string CompanyName { get; set; }
-    [Required, MaxLength(50)] public string JobTitle { get; set; }
+    // Foreign key to User
+    [Required]
+    public int UserId { get; set; }
+    public User User { get; set; } = null!;
+
+    // Foreign key to JobOffer
+    [Required]
+    public int JobOfferId { get; set; }
+    public JobOffer JobOffer { get; set; } = null!;
+
+    // Additional fields for tracking application details
+    [Required]
+    public DateTime AppliedOn { get; set; } = DateTime.UtcNow;
+
+    [MaxLength(50)]
+    public string Status { get; set; } = "Pending"; // e.g. Pending, Accepted, Rejected
+
+    // Optional: cover letter or other application info can be added here
+    public string? CoverLetter { get; set; }
 }

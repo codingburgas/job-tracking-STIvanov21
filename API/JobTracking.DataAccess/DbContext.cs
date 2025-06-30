@@ -11,8 +11,10 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<User> Users { get; set; }
-    public DbSet<JobOffer> JobOffers { get; set; }
+    public DbSet<JobOffer> JobOffers { get; set; } = null!;
+
     public DbSet<Application> Applications { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

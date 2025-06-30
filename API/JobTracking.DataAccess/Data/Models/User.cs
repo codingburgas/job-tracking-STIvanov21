@@ -32,4 +32,6 @@ public class User : IEntity
     [Required, MaxLength(50)] public string? MiddleName { get; set; }
     [Required, MaxLength(50)] public string LastName { get; set; }
     [Required, MaxLength(50)] public string Username { get; set; }
+    
+    public ICollection<Application> JobApplications { get; set; } = new List<Application>();
 }

@@ -1,9 +1,6 @@
 using JobTracking.DataAccess;
-using JobTracking.DataAccess.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
-namespace JobTracking.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -17,57 +14,17 @@ public class JobOffersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<JobOffer>>> GetAllJobOffers()
-    {
-        return await _context.JobOffers.ToListAsync();
-    }
-
-    [HttpGet("{id}")]
-    public async Task<ActionResult<JobOffer>> GetJobOffer(int id)
-    {
-        var jobOffer = await _context.JobOffers.FindAsync(id);
-        if (jobOffer == null) return NotFound();
-        return jobOffer;
-    }
+    public async Task<ActionResult<IEnumerable<JobOffer>>> GetOffers()
+        => await _context.JobOffers.OrderByDescending(o => o.CreatedOn).ToListAsync();
 
     [HttpPost]
-    public async Task<ActionResult<JobOffer>> CreateJobOffer(JobOffer jobOffer)
+    public async Task<IActionResult> CreateOffer([FromBody] JobOffer offer)
     {
-        _context.JobOffers.Add(jobOffer);
+        offer.CreatedOn = DateTime.UtcNow;
+        _context.JobOffers.Add(offer);
         await _context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetJobOffer), new { id = jobOffer.Id }, jobOffer);
+        return Ok(offer);
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateJobOffer(int id, JobOffer updatedJobOffer)
-    {
-        if (id != updatedJobOffer.Id) return BadRequest();
-
-        _context.Entry(updatedJobOffer).State = EntityState.Modified;
-
-        try
-        {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!_context.JobOffers.Any(j => j.Id == id))
-                return NotFound();
-            throw;
-        }
-
-        return NoContent();
-    }
-
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteJobOffer(int id)
-    {
-        var jobOffer = await _context.JobOffers.FindAsync(id);
-        if (jobOffer == null) return NotFound();
-
-        _context.JobOffers.Remove(jobOffer);
-        await _context.SaveChangesAsync();
-
-        return NoContent();
-    }
+    // Add apply logic in a separate controller or method
 }

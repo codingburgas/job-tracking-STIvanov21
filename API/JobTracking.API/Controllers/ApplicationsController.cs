@@ -38,6 +38,41 @@ public class ApplicationsController : ControllerBase
         return CreatedAtAction(nameof(GetApplication), new { id = application.Id }, application);
     }
 
+    // New Apply endpoint
+    [HttpPost("apply")]
+    public async Task<IActionResult> ApplyToJob([FromBody] ApplyJobRequest request)
+    {
+        // Check if User exists
+        var userExists = await _context.Users.AnyAsync(u => u.Id == request.UserId);
+        if (!userExists) return NotFound($"User with ID {request.UserId} not found.");
+
+        // Check if JobOffer exists
+        var jobExists = await _context.JobOffers.AnyAsync(j => j.Id == request.JobOfferId);
+        if (!jobExists) return NotFound($"JobOffer with ID {request.JobOfferId} not found.");
+
+        // Check if the user already applied
+        bool alreadyApplied = await _context.Applications.AnyAsync(a =>
+            a.UserId == request.UserId && a.JobOfferId == request.JobOfferId);
+
+        if (alreadyApplied)
+        {
+            return BadRequest("You have already applied to this job.");
+        }
+
+        var application = new Application
+        {
+            UserId = request.UserId,
+            JobOfferId = request.JobOfferId,
+            AppliedOn = DateTime.UtcNow,
+            Status = "Pending"
+        };
+
+        _context.Applications.Add(application);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { message = "Applied successfully!", applicationId = application.Id });
+    }
+
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateApplication(int id, Application updatedApplication)
     {
@@ -70,4 +105,11 @@ public class ApplicationsController : ControllerBase
 
         return NoContent();
     }
+}
+
+// DTO for Apply request
+public class ApplyJobRequest
+{
+    public int UserId { get; set; }
+    public int JobOfferId { get; set; }
 }
