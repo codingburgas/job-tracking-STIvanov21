@@ -27,4 +27,8 @@
     <ProjectReference Include="..\JobTracking.Domain\JobTracking.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>

@@ -1,47 +1,39 @@
-
 using JobTracking.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
-namespace JobTracking.API
+var builder = WebApplication.CreateBuilder(args);
+
+// ✅ Register AppDbContext with SQL Server
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// ✅ CORS policy for Angular dev server
+builder.Services.AddCors(options =>
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+    options.AddPolicy("AllowAngularDevClient",
+        policy => policy
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
 
-            // Add services to the container.
-            /*builder.AddContext();
-            builder.AddIdentity();
-            builder.AddCors();
-            builder.AddServices();*/
-            
-            builder.Services.AddDbContext<DataAccess.AppDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// ✅ Add services
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
+var app = builder.Build();
 
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+// ✅ Use CORS policy
+app.UseCors("AllowAngularDevClient");
 
-            var app = builder.Build();
+app.UseSwagger();
+app.UseSwaggerUI();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+app.UseHttpsRedirection();
 
-            app.UseHttpsRedirection();
+app.UseAuthorization();
 
-            app.UseAuthorization();
+app.MapControllers();
 
-
-            app.MapControllers();
-
-            app.Run();
-        }
-    }
-}
+app.Run();

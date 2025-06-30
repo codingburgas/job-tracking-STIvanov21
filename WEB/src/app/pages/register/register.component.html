@@ -1,0 +1,50 @@
+<div class="container mt-5" style="max-width: 400px;">
+  <h2>Register</h2>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <form (ngSubmit)="register()">
+    <div class="mb-3">
+      <label>First Name</label>
+      <input [(ngModel)]="form.firstName" name="firstName" required class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label>Middle Name</label>
+      <input [(ngModel)]="form.middleName" name="middleName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label>Last Name</label>
+      <input [(ngModel)]="form.lastName" name="lastName" required class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label>Username</label>
+      <input [(ngModel)]="form.username" name="username" required class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label>Email</label>
+      <input [(ngModel)]="form.email" name="email" type="email" required class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label>Password</label>
+      <input [(ngModel)]="form.password" name="password" type="password" required class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label>Age</label>
+      <input [(ngModel)]="form.age" name="age" type="number" min="0" max="150" required class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label>Role</label>
+      <select [(ngModel)]="form.role" name="role" class="form-control">
+        <option [ngValue]="undefined">USER</option>
+        <option value="ADMIN">ADMIN</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-success w-100">Register</button>
+  </form>
+</div>

@@ -1,8 +1,9 @@
+using JobTracking.DataAccess;
 using JobTracking.DataAccess.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace JobTracking.DataAccess.Controllers;
+namespace JobTracking.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
